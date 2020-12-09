@@ -1,20 +1,29 @@
 #!/usr/bin/python3
 
 import re
+from os import path
+import sys
 
-txtfile = open("phoneNumber.txt", "r")
-txtLines = txtfile.readlines()
-pattern = re.compile('^(\d{3}-|\(\d{3}\)\s)\d{3}-\d{4}$')
-result = ""
-print(txtLines)
+readFile = "phoneNumber.txt"
+writeFile = "result.txt"
 
-for line in txtLines:
-    line = line.strip("\n")
-    pNum = re.match(pattern, line.strip())
-    if pNum:
-        print(line)
-        result += line + "\n"
+currentDir = path.dirname(__file__)
+resourcePath = path.join(currentDir, readFile)
+outputPath = path.join(currentDir, writeFile)
 
-with open("result.txt", "w") as f:
-    f.write(result)
-    f.close()
+pattern = re.compile(r'^(\d{3}-|\(\d{3}\)\s)\d{3}-\d{4}$')
+result = []
+
+with open(resourcePath, "r") as readfs:
+    txtLines = readfs.readlines()
+    for line in txtLines:
+        trimedLine = line.strip(' \n')
+        pNum = re.match(pattern, trimedLine)
+        if pNum:
+            print(trimedLine)
+            result.append(trimedLine)
+    readfs.close()
+
+with open(outputPath, "w") as writefs:
+    writefs.write('\n'.join(result))
+    writefs.close()

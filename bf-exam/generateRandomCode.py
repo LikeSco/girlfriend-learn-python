@@ -5,26 +5,18 @@ import string
 import json
 
 
-ascii_uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-digits = '0123456789'
+totalGuessPool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 
-def random_Value(len):
+def randomValue(len):
     """
     :param len: 随机码长度
     :return: 随机码数字字母组合
     """
-    strV = ""
-    # randVal = random.sample(ascii_uppercase + digits,len)
-    # codeVal = strV.join(randVal)
-    # return codeVal
-    for a in range(len):
-        index = random.randrange(0, len)
-        if index >= a:
-            strV += random.choice(ascii_uppercase)
-        else:
-            strV += random.choice(digits)
-    return strV
+    strV = []
+    for i in range(len):
+        strV.append(random.choice(totalGuessPool))
+    return ''.join(strV)
 
 
 def generateCode(codeLen, codeCount):
@@ -33,21 +25,26 @@ def generateCode(codeLen, codeCount):
     :param codeCount: 随机码个数
     :return:
     """
+
+    # {} 是一个空字典 dict !
+    # nlist = {}
     i = 0
-    nlist = {}
+    dumpSet = set()
 
     while i < codeCount:
-        # number = random.randint(100,999)
-        val = random_Value(codeLen)
-        while val in nlist.values():
-            # number = random.randint(100,999)
-            val = random_Value(codeLen)
-        # nlist[i] = number
-        nlist[i] = val
+        val = randomValue(codeLen)
+        while val in dumpSet:
+            val = randomValue(codeLen)
+        dumpSet.add(val)
         i += 1
 
-    print(nlist)
+    # print(dumpSet)
+    return dumpSet
+
     # print(json.dumps(nlist))
 
 
-generateCode(6, 100)
+output = generateCode(6, 100)
+
+with open('output.json', 'w') as writefs:
+    writefs.write(json.dumps(list(output)))
