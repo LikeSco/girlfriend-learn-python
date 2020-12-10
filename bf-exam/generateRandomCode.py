@@ -48,3 +48,4 @@ output = generateCode(6, 100)
 
 with open('output.json', 'w') as writefs:
     writefs.write(json.dumps(list(output)))
+    writefs.close()
