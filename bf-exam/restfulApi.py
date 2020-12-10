@@ -35,15 +35,17 @@ def get_task(task_id):
     return jsonify({'task': task[0]})
 
 
-# post请求
+# Post请求
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
 def create_task():
-    # 如果请求里面没有json数据，或者json数据里面title的内容为空
-    # if not request.json or not 'name' in request.json:
-    #     abort(400)  # 返回404错误
+    # 如果请求里面没有json数据，或者json数据里面name,age的内容为空
+    if not request.json or not 'name' in request.json:
+        abort(400)  # 返回404错误
+    if not request.json or not 'age' in request.json:
+        abort(400)  # 返回404错误
     task = {
         'id': tasks[-1]['id'] + 1,  # 取末尾tasks的id号+1
-        'name': request.json['name'],  # title必须设置，不能为空。
+        'name': request.json['name'],  # name必须设置，不能为空。
         'age': request.json['age'],
         'category': ["weisuo", "haose"],
         'createTimeStamp': time.time()
