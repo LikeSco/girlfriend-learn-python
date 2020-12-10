@@ -6,7 +6,6 @@ import json
 from os import path
 import time
 
-
 app = Flask(__name__)
 
 readFile = "db.json"
@@ -16,6 +15,8 @@ resourcePath = path.join(currentDir, readFile)
 
 with open(resourcePath, "r", encoding='utf_8_sig') as readfs:
     tasks = json.loads(readfs.read())
+
+
 # print(tasks)
 
 # Get请求
@@ -24,15 +25,15 @@ def get_tasks():
     return jsonify({'tasks': tasks})
 
 
-
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
 def get_task(task_id):
-#检查tasks内部的元素，是否有元素的id值和参数相匹配
+    # 检查tasks内部的元素，是否有元素的id值和参数相匹配
     task = list(filter(lambda t: t['id'] == task_id, tasks))
- #有的话，就返回列表形式包裹的这个元素，没有的话就报错404
+    # 有的话，就返回列表形式包裹的这个元素，没有的话就报错404
     if len(task) == 0:
         abort(404)
     return jsonify({'task': task[0]})
+
 
 # post请求
 @app.route('/todo/api/v1.0/tasks', methods=['POST'])
@@ -54,38 +55,38 @@ def create_task():
 # PUT请求
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
-    #检查是否有这个id数据
+    # 检查是否有这个id数据
     task = list(filter(lambda t: t['id'] == task_id, tasks))
     if len(task) == 0:
         abort(404)
-    #如果请求中没有附带json数据，则报错400
+    # 如果请求中没有附带json数据，则报错400
     if not request.json:
         abort(400)
-    #如果name对应的值，不是字符串类型，则报错400
+    # 如果name对应的值，不是字符串类型，则报错400
     if 'name' in request.json and type(request.json['name']) != str:
         abort(400)
     if 'age' in request.json and type(request.json['age']) is not int:
         abort(400)
     if 'category' in request.json and type(request.json['category']) is not list:
         abort(400)
-    #如果上述条件全部通过的话，更新name的值，同时设置默认值
+    # 如果上述条件全部通过的话，更新name的值，同时设置默认值
     task[0]['name'] = request.json.get('name', task[0]['name'])
     task[0]['age'] = request.json.get('age', task[0]['age'])
     task[0]['category'] = request.json.get('category', task[0]['category'])
-    #返回修改后的数据
+    # 返回修改后的数据
     return jsonify({'task': task[0]})
 
 
 # Delete请求
 @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
-    #检查是否有这个数据
+    # 检查是否有这个数据
     task = list(filter(lambda t: t['id'] == task_id, tasks))
     if len(task) == 0:
         abort(404)
-    #从tasks列表中删除这个值
+    # 从tasks列表中删除这个值
     tasks.remove(task[0])
-    #返回结果状态，自定义的result
+    # 返回结果状态，自定义的result
     return jsonify({'result': True})
 
 
