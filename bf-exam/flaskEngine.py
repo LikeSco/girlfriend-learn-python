@@ -1,9 +1,8 @@
 from jinja2 import PackageLoader, Environment, FileSystemLoader
 from os import path
 import json
-import restfulApi
 
-
+readFile = "db.json"
 writeFile = "myPage.html"
 
 currentDir = path.dirname(__file__)
