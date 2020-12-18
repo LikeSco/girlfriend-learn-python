@@ -15,6 +15,7 @@ resourcePath = path.join(currentDir, readFile)
 
 with open(resourcePath, "r", encoding='utf_8_sig') as readfs:
     tasks = json.loads(readfs.read())
+    readfs.close()
 
 
 # print(tasks)
