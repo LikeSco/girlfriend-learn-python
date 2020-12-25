@@ -16,21 +16,20 @@ class Solution:
         if len(s) % 2 == 1:
             return False
 
-        pairs = {
-            ")": "(",
-            "]": "[",
-            "}": "{",
-        }
-        stack = list()
-        for ch in s:
-            if ch in pairs:
-                if not stack or stack[-1] != pairs[ch]:
-                    return False
-                stack.pop()
-            else:
-                stack.append(ch)
+        else:
+            pairs = {")": "(", "]": "[", "}": "{"}
+            p_list = list()
 
-        return not stack
+            for ch in s:
+                if ch in pairs.keys():
+                    if len(p_list) == 0 or p_list[-1] != pairs[ch]:
+                        return False
+                    else:
+                        p_list.pop()
+                else:
+                    p_list.append(ch)
+
+            return not p_list
 
 
 s = "(([]){})"
