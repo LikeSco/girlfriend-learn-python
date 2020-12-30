@@ -18,7 +18,7 @@ class Solution:
         return ' '.join(word_list)
 
 
-s = "  "
+s = " Alice does not even like bob "
 sol = Solution()
 res = sol.reverseWords(s)
 print(res)
