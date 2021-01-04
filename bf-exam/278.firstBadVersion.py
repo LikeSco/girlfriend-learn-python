@@ -39,8 +39,6 @@ class Solution:
                 i = mid + 1
 
 
-
-
 n = 5
 sol = Solution()
 res = sol.firstBadVersion(n)
