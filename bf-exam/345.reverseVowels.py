@@ -11,7 +11,7 @@ class Solution:
         if s.strip() == '':
             return s
         pattern = 'aeiouAEIOU'
-        s1 = re.sub('[^aeiouAEIOU]', '', s)
+        s1 = re.sub('[^' + pattern + ']', '', s)
         l1 = list(s)
         l2 = list(s1)
         for i, ch in enumerate(l1):
