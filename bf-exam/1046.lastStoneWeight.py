@@ -19,13 +19,13 @@ class Solution:
             x = max(stones)
             stones.remove(x)
             if x != y:
-                stones.append(y-x)
+                stones.append(y - x)
         if len(stones) == 0:
             return 0
         return stones[0]
 
 
-stones = [2,7,4,1,8,1]
+stones = [2, 7, 4, 1, 8, 1]
 sol = Solution()
 res = sol.lastStoneWeight(stones)
 print(res)
