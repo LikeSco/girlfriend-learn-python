@@ -11,9 +11,7 @@ class Solution:
     def average(self, salary) -> float:
         salary.remove(max(salary))
         salary.remove(min(salary))
-        total = 0
-        for item in salary:
-            total += item
+        total = sum(salary)
         return total / len(salary)
 
 
