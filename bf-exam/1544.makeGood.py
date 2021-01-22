@@ -28,8 +28,7 @@ class Solution:
 
         j = 0
         while (j != len(s) - 1) and len(s) != 0:
-            print(s)
-            print(j)
+
             list_s = list(s)
             for j in range(len(s)):
                 if j < len(s) - 1:
